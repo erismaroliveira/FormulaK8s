@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: formula-app-deployment
+  annotations:
+    kubernetes.io/change-cause: "Initional deployment of the app"
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: formula-app
+  template:
+    metadata:
+      name: myformulak8s
+      labels:
+        env: prod
+        app: formula-app
+        app.kubernetes.io/name: formula-app
+    spec:
+      containers:
+        - name: formula-app
+          image: erismardeveloper/formulak8s:v1
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+          ports:
+            - containerPort: 80
+              name: http-web-api
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-lb-service
+spec:
+  selector:
+    app.kubernetes.io/name: formula-app
+  ports:
+    - name: formula-app-port
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+  type: LoadBalancer
