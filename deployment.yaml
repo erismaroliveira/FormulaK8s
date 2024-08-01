@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: formula-app-deployment
   annotations:
-    kubernetes.io/change-cause: "Initional deployment of the app"
+    kubernetes.io/change-cause: "Updating my docker image from v1 to v2"
 spec:
   replicas: 4
   selector:
@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: formula-app
-          image: erismardeveloper/formulak8s:v1
+          image: erismardeveloper/formulak8s:v2
           resources:
             requests:
               cpu: 100m

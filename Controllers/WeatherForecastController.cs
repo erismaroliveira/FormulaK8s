@@ -25,7 +25,7 @@ public class WeatherForecastController : ControllerBase
         {
             Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
             TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = "Hello from my local computer not docker - " + Summaries[Random.Shared.Next(Summaries.Length)]
+            Summary = "Hello from k8s - " + Summaries[Random.Shared.Next(Summaries.Length)]
         })
         .ToArray();
     }
